@@ -1,0 +1,55 @@
+<%- include('./include/header')%>
+    <title><%= title%></title>
+</head>
+<body>
+    <div class="h2box">
+       <h2><%= title%></h2>
+    </div>
+
+    <div class="formbox" >
+        <form name="loginForm" onsubmit="return false;">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+            </div>
+
+            <button type="submit" id="login" class="btn btn-success">login</button>
+            <br>
+            <a href="/">首页</a>
+
+            <a href="/register" style="">注册</a>
+          </form>
+
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $('#login').on('click', function() {
+        // 拿到form表单
+        var loginForm = document.forms['loginForm'],
+          email = loginForm.email.value,
+          password = loginForm.password.value;
+          var data = {
+            email: email,
+            password: password
+          };
+          $.ajax({
+              url: '/login',
+              method: 'POST',
+              data: data,
+              success: function(res) {
+                console.log(res);
+                alert(res.message);
+                window.location.href = '/';
+              },
+              eroor: function(err) {
+                console.log(err);
+              }
+          })
+      });
+    </script>
+</body>
+</html>
